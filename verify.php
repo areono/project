@@ -1,48 +1,53 @@
-<?php 
-require('db.php');
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verification</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
 
-if (isset($_GET['email']) && isset($_GET['v_cod'])) {
-    $email = $_GET['email'];    
-    $v_cod = $_GET['v_cod'];
+        .verification-box {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
 
-    $sql = "SELECT * FROM member WHERE mb_email = '$email' AND verification_token = '$v_cod'";
-    $result = $conn->query($sql);
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="verification-box">
+        <h2>인증 번호 6자리를 입력해주세요.</h2>
+        <form method="post" action="verify.php">
+            <input type="text" name="verification_code" maxlength="6" required>
+            <button type="submit">Verify</button>
+        </form>
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userInput = $_POST['verification_code'];
 
-    if ($result) {
-        if ($result->num_rows == 1) {
-            $row = $result->fetch_assoc();
-            $fetch_Email = $row['mb_email'];
-            
-            if ($row['email_verified'] == 0) {
-                $update = "UPDATE member SET email_verified = '1' WHERE mb_email = '$fetch_Email'";
-                
-                if ($conn->query($update) === TRUE) {
-                    echo "
-                        <script>
-                            alert('Verification successful');
-                            window.location.href = 'index.php'
-                        </script>"; 
-                } else {
-                    echo "
-                        <script>
-                            alert('Query cannot run');
-                            window.location.href = 'login.php' 
-                        </script>";
-                }
+            if ($userInput === $_SESSION['auth_code']) {
+                // Verification successful, redirect to login.php
+                header("Location: login.php");
+                exit();
             } else {
-                echo "
-                    <script>
-                        alert('Email already verified');
-                        window.location.href = 'login.php'
-                    </script>";
+                // Verification failed, display error message
+                echo "<div class='error-message'>Please enter the verification code again.</div>";
             }
         }
-    }   
-} else {
-    echo "
-        <script>
-            alert('Server error');
-            window.location.href = 'login.php'
-        </script>";
-}
-?>
+        ?>
+    </div>
+</body>
+</html>
