@@ -1,5 +1,5 @@
 <?php
-include "db.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/db.php";
 include 'config.php';
 //각 변수에 free_board_write.php에서 title, content, userid 저장
 $title = $_POST['title'];

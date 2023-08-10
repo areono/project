@@ -1,18 +1,12 @@
 <?php
-session_start();
-
-$db_host = "localhost";
-$db_id = "shjeon";
-$db_pw = "Shjeon1374!";
-$db_name = "member_information";
-$connect=mysqli_connect($db_host, $db_id, $db_pw, $db_name);
+include $_SERVER['DOCUMENT_ROOT'] . "/db.php";
 
 $id = $_POST['id'];
 $pw = $_POST['pw'];
 
 //아이디가 있는지 검사
 $query = "SELECT * from member where mb_id='$id'";
-$result = $connect->query($query);
+$result = $conn->query($query);
 
 
 //아이디가 있다면 비밀번호 검사

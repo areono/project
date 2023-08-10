@@ -1,6 +1,6 @@
 <?php 
 
-      include 'header.php';
+include $_SERVER['DOCUMENT_ROOT'] . "/header.php";
 
       function is_user_logged_in() {
         return isset($_SESSION['userid']);
@@ -77,7 +77,7 @@
       if (is_user_admin()) {
         ?>
       <a href="inform_board_write.php"><button>글쓰기</button></a>
-      <?php } ?>
+      <?php }?>
     </div>
   </div>
   <div id="search_box">

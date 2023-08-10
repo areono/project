@@ -1,9 +1,6 @@
 <?php
-include "header.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/header.php";
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 // 사용자가 입력한 검색어와 검색 조건을 받아옴
 

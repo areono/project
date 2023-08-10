@@ -1,3 +1,19 @@
+<?php
+include $_SERVER['DOCUMENT_ROOT'] . "/db.php";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $userInput = $_POST['verification_code'];
+    
+    if ($userInput === $_SESSION['auth_code']) {
+        // Verification successful, redirect to login.php
+        header("Location: login.php");
+        exit();
+    } else {
+        // Verification failed, display error message
+        echo "<div class='error-message'>Please enter the verification code again.</div>";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,26 +44,11 @@
     </style>
 </head>
 <body>
-    <div class="verification-box">
-        <h2>인증 번호 6자리를 입력해주세요.</h2>
-        <form method="post" action="verify.php">
-            <input type="text" name="verification_code" maxlength="6" required>
-            <button type="submit">Verify</button>
-        </form>
-        <?php
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $userInput = $_POST['verification_code'];
+    <form method="post" action="verify.php">
+    <h2>인증 번호 6자리</h2> 
 
-            if ($userInput === $_SESSION['auth_code']) {
-                // Verification successful, redirect to login.php
-                header("Location: login.php");
-                exit();
-            } else {
-                // Verification failed, display error message
-                echo "<div class='error-message'>Please enter the verification code again.</div>";
-            }
-        }
-        ?>
-    </div>
+        <input type="text" name="verification_code" maxlength="6" required>
+        <button type="submit">Verify</button>
+    </form>
 </body>
 </html>

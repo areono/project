@@ -1,14 +1,6 @@
 <?php
-session_start();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+include $_SERVER['DOCUMENT_ROOT'] . "/db.php";
 
-$db_host = "localhost";
-$db_id = "shjeon";
-$db_pw = "Shjeon1374!";
-$db_name = "member_information";
-$connect = mysqli_connect($db_host, $db_id, $db_pw, $db_name);
 
 $id = $_POST['id'];
 $pw = password_hash($_POST['pw'], PASSWORD_DEFAULT);
@@ -20,12 +12,12 @@ require('mail_sender.php');
 
 // Check for duplicate id
 $query1 = "SELECT * FROM member WHERE mb_id='$id'";
-$result1 = $connect->query($query1);
+$result1 = $conn->query($query1);
 $count = mysqli_num_rows($result1);
 
 // Check for EMAIL duplicates
 $query2 = "SELECT * FROM member  WHERE mb_email='$email'";
-$result2 = $connect->query($query2);
+$result2 = $conn->query($query2);
 $count2 = mysqli_num_rows($result2);
 
 if ($count) {

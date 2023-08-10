@@ -1,5 +1,5 @@
 <?php
-include "db.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/db.php";
 include 'config.php';
 $rno = $_POST['rno']; //댓글 번호 
 $sql = mc("SELECT * from free_board_comment_table where idx='".$rno."'");//reply테이블에서 idx가 rno변수에 저장된 값을 찾음
@@ -14,7 +14,7 @@ $user_role = $_SESSION['role'];
 $is_comment_owner = ($reply['userid'] == $_SESSION['userid']);
 
 // 관리자인지 확인
-$is_admin = ($user_role == 'ADMIN');
+$is_admin = ($user_role == 'admin');
 
 if ($is_admin || $is_comment_owner) {
     mc("UPDATE free_board_comment_table SET content='삭제된 댓글입니다' WHERE idx='".$rno."'");

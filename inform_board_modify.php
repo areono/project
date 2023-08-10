@@ -1,5 +1,5 @@
 <?php
-	include "db.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/db.php";
    
 	$bno = $_GET['idx'];
 	$sql = mc("SELECT * from inform_board_table where idx='$bno';");

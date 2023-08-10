@@ -1,6 +1,6 @@
 <?php
 
-	include "header.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/header.php";
 ?>
 <!doctype html>
 <head>
@@ -48,7 +48,7 @@
 		
 				if ($result->num_rows === 0) {
 					// 해당 게시물에 추천 정보 추가
-					mc("INSERT INTO liked_table (user_id, post_id) VALUES ('$user_id', '$bno')");
+					mc("INSERT INTO liked_table (user_id, post_id,created_at) VALUES ('$user_id', '$bno', NOW())");
 		
 					// 추천 수 증가
 					$like = $board['like_count'] + 1;

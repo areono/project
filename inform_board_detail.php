@@ -1,5 +1,5 @@
 <?php
-	include "header.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/header.php";
 ?>
 <!doctype html>
 <head>
@@ -50,7 +50,7 @@
 	<!-- 수정, 삭제 -->
 	<div id="bo_ser">
 		<ul>
-			<li><a href="/">메인화면</a></li>
+			<li><a href="inform_board.php">메인화면</a></li>
 			<?php
 				// 로그인한 사용자만 게시물을 읽을 수 있도록 체크
 				if (is_user_admin()) {

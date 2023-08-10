@@ -1,9 +1,7 @@
-<?php
-session_start();
-$result = session_destroy();
-
-if ($result) {  //성공시 True, 실패시 False 반환
-?><script>
-        history.back();
-    </script>
-<?php } ?>
+<?php 
+//logout.php
+    session_start();
+    session_unset();
+    session_destroy();
+    header("location:login.php");
+?>

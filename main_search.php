@@ -1,39 +1,39 @@
 <?php
-include "db.php";
+include $_SERVER['DOCUMENT_ROOT'] . "/db.php";
 
 $keyword = $_GET['search'];
 $search_option = $_GET['search_option'];
 
 if ($search_option === 'title') {
-    $sql = "SELECT idx, title, name, view, 'free_board' AS board_name FROM free_board WHERE title LIKE '%$keyword%'"
-        . " UNION SELECT idx, title, name, view, 'qna_board' AS board_name FROM qna_board WHERE title LIKE '%$keyword%' AND lock_post = 0"
-        . " UNION SELECT idx, title, name, view, 'inform_board' AS board_name FROM inform_board WHERE title LIKE '%$keyword%'";
+    $sql = "SELECT idx, title, name, view, 'free_board' AS board_name FROM free_board_table WHERE title LIKE '%$keyword%'"
+        . " UNION SELECT idx, title, name, view, 'qna_board' AS board_name FROM qna_board_table WHERE title LIKE '%$keyword%' AND lock_post = 0"
+        . " UNION SELECT idx, title, name, view, 'inform_board' AS board_name FROM inform_board_table WHERE title LIKE '%$keyword%'";
 } elseif ($search_option === 'content') {
-    $sql = "SELECT idx, title, name, view, 'free_board' AS board_name FROM free_board WHERE content LIKE '%$keyword%'"
-        . " UNION SELECT idx, title, name, view, 'qna_board' AS board_name FROM qna_board WHERE content LIKE '%$keyword%' AND lock_post = 0"
-        . " UNION SELECT idx, title, name, view, 'inform_board' AS board_name FROM inform_board WHERE content LIKE '%$keyword%'";
+    $sql = "SELECT idx, title, name, view, 'free_board' AS board_name FROM free_board_table WHERE content LIKE '%$keyword%'"
+        . " UNION SELECT idx, title, name, view, 'qna_board' AS board_name FROM qna_board_table WHERE content LIKE '%$keyword%' AND lock_post = 0"
+        . " UNION SELECT idx, title, name, view, 'inform_board' AS board_name FROM inform_board_table WHERE content LIKE '%$keyword%'";
 } elseif ($search_option === 'name') {
-    $sql = "SELECT idx, title, name, view, 'free_board' AS board_name FROM free_board WHERE name LIKE '%$keyword%'"
-        . " UNION SELECT idx, title, name, view, 'qna_board' AS board_name FROM qna_board WHERE name LIKE '%$keyword%' AND lock_post = 0"
-        . " UNION SELECT idx, title, name, view, 'inform_board' AS board_name FROM inform_board WHERE name LIKE '%$keyword%'";
+    $sql = "SELECT idx, title, name, view, 'free_board' AS board_name FROM free_board_table WHERE name LIKE '%$keyword%'"
+        . " UNION SELECT idx, title, name, view, 'qna_board' AS board_name FROM qna_board_table WHERE name LIKE '%$keyword%' AND lock_post = 0"
+        . " UNION SELECT idx, title, name, view, 'inform_board' AS board_name FROM inform_board_table WHERE name LIKE '%$keyword%'";
 } else {
-    $sql = "SELECT * FROM qna_board WHERE lock_post = 0";
+    $sql = "SELECT * FROM qna_board_table WHERE lock_post = 0";
 }
 // url 받아오기
 function get_detail_page_url($board_type, $post_id) {
     if ($board_type === 'free_board') {
         return "free_board_detail.php?idx={$post_id}";
     } elseif ($board_type === 'qna_board') {
-        return "qna_detail.php?idx={$post_id}";
+        return "qna_board_detail.php?idx={$post_id}";
     } elseif ($board_type === 'inform_board') {
-        return "inform_detail.php?idx={$post_id}";
+        return "inform_board_detail.php?idx={$post_id}";
     } else {
         return '#'; 
     }
 }
 
 // 검색결과
-$result = mysqli_query($db, $sql);
+$result = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>

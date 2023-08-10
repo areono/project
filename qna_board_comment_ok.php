@@ -1,6 +1,6 @@
 <?php
-    include "db.php";
-    include 'config.php';
+include $_SERVER['DOCUMENT_ROOT'] . "/db.php";
+include 'config.php';
 
 $bno = $_GET['idx']; // 게시글 번호
 

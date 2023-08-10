@@ -2,8 +2,8 @@
 include $_SERVER['DOCUMENT_ROOT'] . "/header.php";
 
 // 사용자가 입력한 검색어와 검색 조건을 받아옴
-$keyword = $_GET['search'];
-$search_option = $_GET['search_option'];
+$keyword = isset($_GET['search']) ? $_GET['search'] : '';
+$search_option = isset($_GET['search_option']) ? $_GET['search_option'] : '';
 
 // 검색 조건에 따라 쿼리 생성
 if ($search_option === 'title') {
@@ -30,7 +30,7 @@ if ($search_option === 'title') {
   </thead> <?php
 
 // 쿼리 실행
-$result = mysqli_query($db, $sql);
+$result = mysqli_query($conn, $sql);
 
 // 검색 결과 출력
 if (mysqli_num_rows($result) > 0) {

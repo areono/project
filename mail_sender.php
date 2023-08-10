@@ -1,5 +1,5 @@
 <?php
-include 'db.php';
+include $_SERVER['DOCUMENT_ROOT'] . "/db.php";
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
