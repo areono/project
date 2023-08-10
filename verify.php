@@ -8,47 +8,92 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: login.php");
         exit();
     } else {
-        // Verification failed, display error message
-        echo "<div class='error-message'>Please enter the verification code again.</div>";
+        // Verification failed, set error message
+        $error_message = "Please enter the verification code again.";
     }
 }
 ?>
 
 <!DOCTYPE html>
 <html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <head>
-    <title>Verification</title>
+    <meta charset='utf-8'>
     <style>
         body {
+            background-color: #141414;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
         }
 
-        .verification-box {
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #fff;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        .verification-container {
             text-align: center;
+            padding: 40px;
+            background-color: #1E1E1E;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            width: 320px;
+        }
+
+        .verification-title {
+            font-size: 25px;
+            color: #E50914;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .verification-code {
+            margin: 10px 0;
+            padding: 10px;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            width: 100%;
+            background-color: #1E1E1E;
+            color: white;
+            font-size: 16px;
+        }
+
+        .verification-button {
+            background-color: #E50914;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .verification-button:hover {
+            background-color: #FF141F;
         }
 
         .error-message {
-            color: red;
+            color: #FF141F;
+            font-size: 14px;
             margin-top: 10px;
         }
     </style>
+   
 </head>
-<body>
-    <form method="post" action="verify.php">
-    <h2>인증 번호 6자리</h2> 
 
-        <input type="text" name="verification_code" maxlength="6" required>
-        <button type="submit">Verify</button>
-    </form>
+<body>
+    <div class="verification-container">
+        <?php if (isset($error_message)) { ?>
+        <div class="error-message"><?php echo $error_message; ?></div>
+        <?php } ?>
+
+        <h2 class="verification-title">Verification Code</h2>
+        <form method="post" action="verify.php">
+            <input class="verification-code" type="text" name="verification_code" maxlength="6" required>
+            <button class="verification-button" type="submit">Verify</button>
+        </form>
+    </div>
 </body>
+
 </html>
